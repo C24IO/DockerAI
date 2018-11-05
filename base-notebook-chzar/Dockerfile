@@ -92,6 +92,7 @@ RUN conda install --quiet --yes 'tini=0.18.0' && \
 # Do all this in a single RUN command to avoid duplicating all of the
 # files across image layers when the permissions change
 RUN conda install --quiet --yes \
+    'flask=1.0.2' \
     'notebook=5.7.0' \
     'jupyterhub=0.9.4' \
     'jupyterlab=0.34.12' && \
