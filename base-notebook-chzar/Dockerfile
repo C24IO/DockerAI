@@ -25,6 +25,19 @@ RUN apt-get update && apt-get -yq dist-upgrade \
     locales \
     fonts-liberation \
     screen \
+    build-essential \
+    cmake \
+    git \
+    curl \
+    vim \
+    ca-certificates \
+    libnccl2=2.2.13-1+cuda9.0 \
+    libnccl-dev=2.2.13-1+cuda9.0 \
+    python-qt4 \
+    libjpeg-dev \
+	zip \
+	unzip \
+    libpng-dev \
  && apt-get clean \
  && rm -rf /var/lib/apt/lists/*
 
