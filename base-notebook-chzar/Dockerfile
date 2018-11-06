@@ -92,7 +92,6 @@ RUN conda install --quiet --yes 'tini=0.18.0' && \
 # Do all this in a single RUN command to avoid duplicating all of the
 # files across image layers when the permissions change
 RUN conda install --quiet --yes \
-    'flask' \
     'notebook=5.7.0' \
     'jupyterhub=0.9.4' \
     'jupyterlab=0.34.12' && \
@@ -102,6 +101,13 @@ RUN conda install --quiet --yes \
     jupyter notebook --generate-config && \
     rm -rf $CONDA_DIR/share/jupyter/lab/staging && \
     rm -rf /home/$NB_USER/.cache/yarn && \
+    fix-permissions $CONDA_DIR && \
+    fix-permissions /home/$NB_USER
+
+COPY requirements.txt $HOME
+WORKDIR $HOME
+RUN while read requirement; do conda install --yes $requirement; done < requirements.txt && \
+    conda clean -tipsy && \
     fix-permissions $CONDA_DIR && \
     fix-permissions /home/$NB_USER
 
