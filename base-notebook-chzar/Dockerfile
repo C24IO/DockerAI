@@ -118,6 +118,7 @@ RUN conda install --quiet --yes \
     fix-permissions /home/$NB_USER
 
 COPY requirements.txt $HOME
+RUN fix-permissions $HOME/requirements.txt
 WORKDIR $HOME
 RUN while read requirement; do conda install --quiet --yes $requirement; done < requirements.txt && \
     conda clean -tipsy && \
