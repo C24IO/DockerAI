@@ -31,8 +31,6 @@ RUN apt-get update && apt-get -yq dist-upgrade \
     curl \
     vim \
     ca-certificates \
-    libnccl2=2.2.13-1+cuda9.0 \
-    libnccl-dev=2.2.13-1+cuda9.0 \
     python-qt4 \
     libjpeg-dev \
 	zip \
@@ -114,14 +112,6 @@ RUN conda install --quiet --yes \
     jupyter notebook --generate-config && \
     rm -rf $CONDA_DIR/share/jupyter/lab/staging && \
     rm -rf /home/$NB_USER/.cache/yarn && \
-    fix-permissions $CONDA_DIR && \
-    fix-permissions /home/$NB_USER
-
-COPY requirements.txt $HOME
-RUN fix-permissions $HOME/requirements.txt
-WORKDIR $HOME
-RUN while read requirement; do conda install --quiet --yes $requirement; done < requirements.txt && \
-    conda clean -tipsy && \
     fix-permissions $CONDA_DIR && \
     fix-permissions /home/$NB_USER
 
